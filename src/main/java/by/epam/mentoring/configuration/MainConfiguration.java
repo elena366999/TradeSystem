@@ -33,30 +33,32 @@ import java.util.Locale;
 @ImportResource("file:**/WEB-INF/appconfig-security.xml")
 public class MainConfiguration implements WebMvcConfigurer {
 
-//    @Bean
-//    public ThemeSource themeSource(){
-//        ResourceBundleThemeSource themeSource = new ResourceBundleThemeSource();
-//        themeSource.setBasenamePrefix("theme-");
-//        return themeSource;
-//    }
-//
-//    @Bean
-//    public ThemeResolver themeResolver(){
-//        CookieThemeResolver themeResolver =  new CookieThemeResolver();
-//        themeResolver.setDefaultThemeName("regular");
-//        return themeResolver;
-//    }
-//
-//    @Bean
-//    public ThemeChangeInterceptor themeChangeInterceptor(){
-//        ThemeChangeInterceptor themeChangeInterceptor = new ThemeChangeInterceptor();
-//        themeChangeInterceptor.setParamName("siteTheme");
-//        return themeChangeInterceptor;
-//    }
+    @Bean
+    public ThemeSource themeSource() {
+        ResourceBundleThemeSource themeSource = new ResourceBundleThemeSource();
+        themeSource.setBasenamePrefix("theme-");
+        return themeSource;
+    }
+
+    @Bean
+    public ThemeResolver themeResolver() {
+        CookieThemeResolver themeResolver = new CookieThemeResolver();
+        themeResolver.setDefaultThemeName("regular");
+        return themeResolver;
+    }
+
+    @Bean
+    public ThemeChangeInterceptor themeChangeInterceptor() {
+        ThemeChangeInterceptor themeChangeInterceptor = new ThemeChangeInterceptor();
+        themeChangeInterceptor.setParamName("siteTheme");
+        return themeChangeInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor()).addPathPatterns("/");
+        registry.addInterceptor(themeChangeInterceptor()).addPathPatterns("/");
+
     }
 
     @Bean
@@ -65,14 +67,14 @@ public class MainConfiguration implements WebMvcConfigurer {
         interceptor.setParamName("language");
         return interceptor;
     }
-//
+
 //    @Bean
 //    public LocaleResolver localeResolver() {
 //        SessionLocaleResolver resolver = new SessionLocaleResolver();
 //        resolver.setDefaultLocale(Locale.ENGLISH);
 //        return resolver;
 //    }
-
+//
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
@@ -89,7 +91,7 @@ public class MainConfiguration implements WebMvcConfigurer {
     @Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
         RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
-        mapping.setInterceptors(localeChangeInterceptor());
+        mapping.setInterceptors(localeChangeInterceptor(), themeChangeInterceptor());
         return mapping;
     }
 

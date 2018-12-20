@@ -88,26 +88,21 @@ public class OrderDao {
         }
     }
 
-
     private static List<Item> getItemsByOrder(final Long orderId) {
         String sql = "SELECT items.id, items.productId, items.quantity, products.id FROM items inner join order_items on order_items.item_id inner join products on products.id where order_items.order_id= ;" + orderId;
         return jdbcTemplate.query(sql, new ItemDao.ItemMapper());
     }
 
     private void insertItemsInOrder(final Order order) {
-
         String sql = "INSERT INTO order_items (order_id, item_id) VALUES (?,?)";
         List<Item> items = order.getItems();
-        items.forEach(item -> {
+        items.forEach(item -> jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql);
 
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(sql);
-
-                ps.setLong(1, order.getId());
-                ps.setLong(2, item.getId());
-                return ps;
-            });
-        });
+            ps.setLong(1, order.getId());
+            ps.setLong(2, item.getId());
+            return ps;
+        }));
 
     }
 }

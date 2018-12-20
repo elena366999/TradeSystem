@@ -1,6 +1,7 @@
 package by.epam.mentoring.dao;
 
 import by.epam.mentoring.model.Product;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,6 +17,8 @@ import java.util.Objects;
 
 @Repository
 public class ProductDao {
+
+    private static final Logger logger = Logger.getLogger(ProductDao.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -44,7 +47,7 @@ public class ProductDao {
                 try {
                     ps.setBlob(4, product.getImage().getInputStream());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage(), e);
                 }
             }else{
                 ps.setBlob(4, (Blob) null);
