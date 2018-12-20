@@ -49,8 +49,8 @@
         <spring:bind path="confirmPassword">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <spring:message code="label.confirm"/>
-                <form:input type="password" path="confirmPassword" class="form-control"></form:input>
-                <form:errors path="confirmPassword"></form:errors>
+                <form:input type="password" path="confirmPassword" class="form-control"/>
+                <form:errors path="confirmPassword"/>
             </div>
         </spring:bind>
 
@@ -62,7 +62,7 @@
                         <form:option value="${r}" label="${r.value}"/>
                     </c:forEach>
                 </form:select>
-                <form:errors path="role"></form:errors>
+                <form:errors path="role"/>
             </div>
         </spring:bind>
 
