@@ -13,10 +13,9 @@ import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 
 @Configuration
-@PropertySource("classpath:/database.properties")
+@PropertySource("classpath:/db/database.properties")
 public class DbConfiguration {
 
     @Autowired
@@ -37,7 +36,7 @@ public class DbConfiguration {
     private DatabasePopulator createDatabasePopulator() {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.setContinueOnError(true);
-        ClassPathResource classPathResource = new ClassPathResource("database.sql");
+        ClassPathResource classPathResource = new ClassPathResource("db/database.sql");
         databasePopulator.addScript(classPathResource);
         return databasePopulator;
     }

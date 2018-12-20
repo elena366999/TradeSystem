@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 @Controller
 public class ItemController {
 
@@ -16,10 +18,8 @@ public class ItemController {
     private ItemService itemService;
 
     @RequestMapping(value = "/addItem", method = RequestMethod.POST)
-    public String addItem(@RequestParam("image") MultipartFile file, @ModelAttribute Item itemForm, BindingResult bindingResult) {
+    public String addItem(@RequestParam("image") MultipartFile file, @Valid @ModelAttribute Item itemForm, BindingResult bindingResult) {
         // userValidator.validate(userForm, bindingResult);
-
-
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -32,17 +32,16 @@ public class ItemController {
         return "redirect:/admin";
     }
 
-    @GetMapping( "/deleteItem")
+    @GetMapping("/deleteItem")
     public String deleteItem(@RequestParam("id") int id) {
         itemService.delete(id);
         return "redirect:/admin";
 
     }
 
-    @GetMapping( "/addItem")
+    @GetMapping("/addItem")
     public String addItem(@RequestParam("id") int id) {
         Item item = itemService.getById(id);
-
 
 
         return "buy";
@@ -56,5 +55,4 @@ public class ItemController {
     }
 
 
-
-    }
+}

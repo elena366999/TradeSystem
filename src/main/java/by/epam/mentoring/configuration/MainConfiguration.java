@@ -12,10 +12,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.theme.CookieThemeResolver;
 import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
@@ -23,7 +21,6 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import javax.servlet.MultipartConfigElement;
 import java.util.Locale;
 
 @Configuration
@@ -58,7 +55,6 @@ public class MainConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor()).addPathPatterns("/");
         registry.addInterceptor(themeChangeInterceptor()).addPathPatterns("/");
-
     }
 
     @Bean
@@ -68,25 +64,14 @@ public class MainConfiguration implements WebMvcConfigurer {
         return interceptor;
     }
 
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        SessionLocaleResolver resolver = new SessionLocaleResolver();
-//        resolver.setDefaultLocale(Locale.ENGLISH);
-//        return resolver;
-//    }
-//
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-//        cookieLocaleResolver.setCookieName("cookie-locale-info");
-        // Set default locale value.
+        cookieLocaleResolver.setCookieName("cookie-locale-info");
         cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
-        // Set cookie max exist time.
         cookieLocaleResolver.setCookieMaxAge(3600);
-
         return cookieLocaleResolver;
     }
-
 
     @Bean
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
@@ -94,7 +79,6 @@ public class MainConfiguration implements WebMvcConfigurer {
         mapping.setInterceptors(localeChangeInterceptor(), themeChangeInterceptor());
         return mapping;
     }
-
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -115,20 +99,11 @@ public class MainConfiguration implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:internationalmessages");
-//        messageSource.addBasenames();
-//        messageSource.addBasenames("classpath:internationalmessages");
+        messageSource.addBasenames("classpath:internationalmessages", "classpath:validation");
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(1);
         return messageSource;
     }
-
-//    @Bean
-//    public FreeMarkerConfigurer setupFreeMarkerConfigurer() {
-//        FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
-//        configurer.setTemplateLoaderPath("/WEB-INF/view/ftl");
-//        return configurer;
-//    }
 
     @Bean
     public CommonsMultipartResolver setupMultipartResolver() {
