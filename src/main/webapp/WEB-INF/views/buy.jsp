@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://displaytag.sf.net" prefix="display" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -13,27 +13,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <title>Welcome</title>
+    <title>Admin</title>
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-
 <div class="container">
-
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+        <form id="logoutForm" method="post" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        <h2>Admin Page ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a><br>
+            <a href="${contextPath}/welcome">To shop main page</a><br>
 
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
-        <br>   <a href="${contextPath}/admin">To admin page (available for admins only)</a>
-         </h2>
-
+        </h2>
     </c:if>
-
 </div>
 
 </div>
@@ -44,38 +40,33 @@
 			<th>Description</th>
 			<th>Price</th>
 			<th>Image</th>
-						<th>Action</th>
 
 				</tr>
-		<c:forEach items="${products}" var="product" >
 		<tr>
 			<td>${product.name}</td>
 			<td>${product.description}</td>
 			<td>${product.price}</td>
 			<td><img src="data:image/jpeg;base64,${product.encode}" width="150" height="200"
-                                                                        alt="item"/></td>
-  <td><a href="${contextPath}/buyProduct?id=${product.id}">Buy</a></td>
-
+                                                                        alt="product"/></td>
 
 		</tr>
-		</c:forEach>
 	</table>
 </div>
 
-<br>
-<div class="w3-container w3-padding" >
-<display:table name="products" pagesize="3" requestURI="" class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" >
-  <display:column property="name" title="name"/>
-  <display:column property="description" sortable="true" />
-  <display:column property="price" />
-  <display:column property="image" />
-</display:table>
+<div>
+<form method="POST" action="/addItemToOrder/${product.id}" class="form-signin">
+  Quantity:<br>
+  <input type="text" name="quantity" value="Quantity">
+  <br>
+ <input type="hidden" name="_csrf" value="${_csrf.token}" />
+ <br>
+  <input type="submit" value="Submit">
+</form>
+
 </div>
-
-
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
 </body>
 </html>

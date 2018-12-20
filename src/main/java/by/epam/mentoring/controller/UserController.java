@@ -1,7 +1,9 @@
 package by.epam.mentoring.controller;
 
-import by.epam.mentoring.model.Item;
+import by.epam.mentoring.model.Product;
 import by.epam.mentoring.model.enums.Role;
+import by.epam.mentoring.service.ItemService;
+import by.epam.mentoring.service.ProductService;
 import by.epam.mentoring.validator.UserValidator;
 import by.epam.mentoring.model.User;
 import by.epam.mentoring.service.SecurityService;
@@ -14,14 +16,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private SecurityService securityService;
@@ -53,7 +61,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    public String login(Locale locale, Model model, String error, String logout) {
         if (error != null) {
             model.addAttribute("error", "Username or password is incorrect.");
         }
@@ -67,12 +75,16 @@ public class UserController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+
+        model.addAttribute("products", productService.getAll());
+
         return "welcome";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
-        model.addAttribute("itemForm", new Item());
+        model.addAttribute("productForm", new Product());
+        model.addAttribute("products", productService.getAll());
 
         return "admin";
     }

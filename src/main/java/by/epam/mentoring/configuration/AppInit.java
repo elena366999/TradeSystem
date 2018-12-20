@@ -18,7 +18,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(MainConfiguration.class);
 
-        servletContext.addListener(new ContextLoaderListener(context));
+     //   servletContext.addListener(new ContextLoaderListener(context));
         servletContext.setInitParameter("defaultHtmlEscape", "true");
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcherServlet", new DispatcherServlet(context));
@@ -34,6 +34,8 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         FilterRegistration.Dynamic securityFilter = servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
         securityFilter.addMappingForUrlPatterns(null, false, "/*");
         securityFilter.setAsyncSupported(true);
+        context.setServletContext(servletContext);
+
 
     }
 

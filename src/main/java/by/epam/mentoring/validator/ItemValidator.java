@@ -1,11 +1,7 @@
 package by.epam.mentoring.validator;
 
-import by.epam.mentoring.model.Item;
-import by.epam.mentoring.model.User;
-import by.epam.mentoring.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.epam.mentoring.model.Product;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 public class ItemValidator implements Validator {
@@ -15,7 +11,7 @@ public class ItemValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Item.class.equals(aClass);
+        return Product.class.equals(aClass);
     }
 
     @Override

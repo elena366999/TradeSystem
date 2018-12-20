@@ -14,6 +14,7 @@
     <meta name="author" content="">
 
     <title>Admin</title>
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -24,72 +25,75 @@
         <form id="logoutForm" method="post" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2>Admin Page ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
+        <h2>Admin Page ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a><br>
+            <a href="${contextPath}/welcome">To shop main page</a><br>
+                        <a href="${contextPath}/admin">To admin panel main page</a>
+
+
         </h2>
     </c:if>
 </div>
 
 
-<div class="container">
 
-    <form:form method="POST" action="/addItem?${_csrf.parameterName}=${_csrf.token}" modelAttribute="itemForm" class="form-signin">
-        <h2 class="form-signin-heading">Create new item</h2>
+</div>
+ <div class="w3-container w3-padding">
+	<table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
+		<tr class="w3-teal">
+			<th>Name</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Image</th>
+			<th>Action</th>
 
-        <spring:bind path="name">
+				</tr>
+		<c:forEach items="${products}" var="product" >
+		<tr>
+			<td>${product.name}</td>
+			<td>${product.description}</td>
+			<td>${product.price}</td>
+			<td><img src="data:image/jpeg;base64,${product.encode}" width="150" height="200"
+                                                                        alt="item"/></td>
+
+			<td><a href="${contextPath}/deleteProduct?id=${product.id}">Delete product</a></td>
+
+		</tr>
+		</c:forEach>
+	</table>
+</div>
+
+<h6>This one</h6>
+    <div class="container">
+
+    <form:form method="POST" action="/addProduct?${_csrf.parameterName}=${_csrf.token}" modelAttribute="productForm" enctype="multipart/form-data"  class="form-signin">
+            <h2 class="form-signin-heading">Create new item</h2>
+
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="text" name="name"  path="name" class="form-control" placeholder="Item name"
+                                autofocus="true"></form:input>
+                    <form:errors path="name"></form:errors>
+                </div>
+
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="text" name="description"  path="description" class="form-control" placeholder="Description"></form:input>
+                    <form:errors path="description"></form:errors>
+                </div>
+
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="text" name="price" path="price" class="form-control"
+                                placeholder="0.0"></form:input>
+                    <form:errors path="price"></form:errors>
+                </div>
+
             <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="name" class="form-control" placeholder="Item name"
-                            autofocus="true"></form:input>
-                <form:errors path="name"></form:errors>
-            </div>
-        </spring:bind>
+                    <input type="file" name="image" class="form-control"
+                                placeholder="Image"></input>
 
-        <spring:bind path="description">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="description" class="form-control" placeholder="Sescription"></form:input>
-                <form:errors path="description"></form:errors>
-            </div>
-        </spring:bind>
+                </div>
 
-        <spring:bind path="price">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="price" class="form-control"
-                            placeholder="Price"></form:input>
-                <form:errors path="price"></form:errors>
-            </div>
-        </spring:bind>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        </form:form>
 
-        <spring:bind path="quantity">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="text" path="quantity" class="form-control"
-                            placeholder="Quantity"></form:input>
-                <form:errors path="quantity"></form:errors>
-            </div>
-        </spring:bind>
-
-
-        <spring:bind path="image">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <form:input type="file" path="image" class="form-control"
-                            placeholder="Quantity"></form:input>
-                <form:errors path="image"></form:errors>
-            </div>
-        </spring:bind>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-    </form:form>
-
-    <div>
-        <form method="POST" enctype="multipart/form-data" action="/addItem?${_csrf.parameterName}=${_csrf.token}">
-            <table>
-                <tr><td>File to upload:</td><td>
-                    <input type="text" name="name" /></td></tr>
-                <input type="text" name="description" /></td></tr>
-                <input type="text" name="price" /></td></tr>
-                <input type="text" name="quantity" /></td></tr><<br>>
-                <input type="file" name="image" /></td></tr>
-                <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-            </table>
-        </form>
     </div>
 
 </div>
