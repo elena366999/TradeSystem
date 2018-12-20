@@ -22,7 +22,7 @@ public class ItemDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private static ProductDao productDao;
+    private ProductDao productDao;
 
 //    public Product findByUsername(String username) {
 //        String sql = "SELECT * FROM users WHERE username=?";
@@ -66,14 +66,14 @@ public class ItemDao {
 //        return jdbcTemplate.queryForObject(sql, new Object[]{email}, new UserMapper());
 //    }
 
-    public static final class ItemMapper implements RowMapper<Item> {
+    final class ItemMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(final ResultSet resultSet, final int i) throws SQLException {
             Item item;
 
             item = new Item();
             item.setId((long) resultSet.getInt("items.id"));
-            item.setProduct(productDao.getById(resultSet.getLong("products.id")));
+            item.setProduct(productDao.getById(resultSet.getLong("items.product_id")));
             item.setQuantity(resultSet.getInt("items.quantity"));
 
             return item;

@@ -38,11 +38,6 @@ public class DbConfiguration {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.setContinueOnError(true);
         ClassPathResource classPathResource = new ClassPathResource("database.sql");
-//        try {
-//            System.out.println(classPathResource.getURI());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         databasePopulator.addScript(classPathResource);
         return databasePopulator;
     }

@@ -17,22 +17,27 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Repository
 public class OrderDao {
 
     @Autowired
-    private static JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private static UserDao userDao;
+    private UserDao userDao;
+
 //    public Product findByUsername(String username) {
 //        String sql = "SELECT * FROM users WHERE username=?";
 //        return jdbcTemplate.queryForObject(sql, new Object[]{username}, new UserDao.UserMapper());
 //    }
 
+    @Autowired
+    private ItemDao itemDao;
+
     public Collection<Order> getAll() {
-        String sql = "SELECT * FROM orders inner join users on users.id;";
+        String sql = "SELECT * FROM orders;";
         return jdbcTemplate.query(sql, new OrderDao.OrderMapper());
     }
 
@@ -73,24 +78,25 @@ public class OrderDao {
 //        return jdbcTemplate.queryForObject(sql, new Object[]{email}, new UserMapper());
 //    }
 
-    private static final class OrderMapper implements RowMapper<Order> {
+    private final class OrderMapper implements RowMapper<Order> {
         @Override
         public Order mapRow(final ResultSet resultSet, final int i) throws SQLException {
             Order order;
-
+            long id = resultSet.getInt("id");
             order = new Order();
-            order.setId((long) resultSet.getInt("orders.id"));
-            order.setOrderStatus(OrderStatus.valueOf(resultSet.getString("orders.order_status").toUpperCase()));
-            order.setUser(userDao.getById(resultSet.getLong("orders.user_id")));
-            order.setItems(getItemsByOrder(order.getId()));
+            order.setId(id);
+            order.setOrderStatus(OrderStatus.valueOf(resultSet.getString("order_status").toUpperCase()));
+            order.setUser(userDao.getById(resultSet.getLong("user_id")));
+            order.setItems(getItemsByOrder(id));
 
             return order;
         }
     }
 
-    private static List<Item> getItemsByOrder(final Long orderId) {
-        String sql = "SELECT items.id, items.productId, items.quantity, products.id FROM items inner join order_items on order_items.item_id inner join products on products.id where order_items.order_id= ;" + orderId;
-        return jdbcTemplate.query(sql, new ItemDao.ItemMapper());
+    private List<Item> getItemsByOrder(final Long orderId) {
+        String sql = "SELECT item_id from order_items where order_id= " + orderId;
+        List<Long> list = jdbcTemplate.queryForList(sql, Long.class);
+        return list.stream().map(id -> itemDao.getById(id)).collect(Collectors.toList());
     }
 
     private void insertItemsInOrder(final Order order) {

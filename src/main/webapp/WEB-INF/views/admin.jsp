@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -20,6 +22,9 @@
 </head>
 
 <body>
+
+<a href="${contextPath}/showAllOrders"><spring:message code="label.orders"/></a>
+
 <div class="container">
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="post" action="${contextPath}/logout">
@@ -29,12 +34,9 @@
             <a href="${contextPath}/welcome">To shop main page</a><br>
                         <a href="${contextPath}/admin">To admin panel main page</a>
 
-
         </h2>
     </c:if>
 </div>
-
-
 
 </div>
  <div class="w3-container w3-padding">
@@ -56,7 +58,6 @@
                                                                         alt="item"/></td>
 
 			<td><a href="${contextPath}/deleteProduct?id=${product.id}">Delete product</a></td>
-
 		</tr>
 		</c:forEach>
 	</table>
@@ -90,10 +91,8 @@
                                 placeholder="Image"></input>
 
                 </div>
-
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         </form:form>
-
     </div>
 
 </div>
