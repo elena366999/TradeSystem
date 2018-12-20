@@ -36,6 +36,6 @@ public class Product {
 
     private MultipartFile image;
 
-    @Transient
+//    @Transient
     private String encode;
 }

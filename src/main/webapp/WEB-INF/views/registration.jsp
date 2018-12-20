@@ -59,7 +59,7 @@
                 <form:select path="role" class="styled-select slate">
                     <option value="" disabled selected hidden><spring:message code="label.role"/></option>
                     <c:forEach var="r" items="${roles}">
-                        <form:option path="role" value="${r.value}"/>${r.value}
+                        <form:option value="${r}" label="${r.value}"/>
                     </c:forEach>
                 </form:select>
                 <form:errors path="role"></form:errors>
