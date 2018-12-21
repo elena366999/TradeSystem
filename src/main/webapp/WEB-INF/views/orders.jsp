@@ -49,6 +49,7 @@
             <th><spring:message code="label.order-id"/></th>
             <th><spring:message code="label.status"/></th>
             <th><spring:message code="label.username"/></th>
+
         </tr>
         <c:forEach items="${orders}" var="order">
             <tr>

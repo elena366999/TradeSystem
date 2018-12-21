@@ -21,7 +21,7 @@ public class ProductController {
 
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "admin.jsp";
         }
 
         productForm.setImage(file);
@@ -30,13 +30,13 @@ public class ProductController {
 //
 //        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
-        return "redirect:/admin";
+        return "redirect:/admin.jsp";
     }
 
     @GetMapping("/deleteProduct")
     public String deleteItem(@RequestParam("id") int id) {
         productService.delete(id);
-        return "redirect:/admin";
+        return "redirect:/admin.jsp";
 
     }
 
@@ -44,6 +44,6 @@ public class ProductController {
     public String buyProduct(@RequestParam("id") int id, Model model) {
         Product product = productService.getById(id);
         model.addAttribute("product", product);
-        return "buy";
+        return "buy.jsp";
     }
 }

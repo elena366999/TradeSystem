@@ -39,7 +39,7 @@
 </div>
 <div class="container">
     <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
-        <tr class="w3-teal">
+        <tr class="w3-blue">
             <th><spring:message code="label.product-name"/></th>
             <th><spring:message code="label.product-description"/></th>
             <th><spring:message code="label.product-price"/></th>

@@ -42,7 +42,7 @@ public class UserController {
         model.addAttribute("userForm", new User());
         model.addAttribute("roles", Arrays.asList(Role.values()));
 
-        return "registration";
+        return "registration.jsp";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -50,14 +50,14 @@ public class UserController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "registration.jsp";
         }
 
         userService.save(userForm);
 
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
-        return "redirect:/welcome";
+        return "redirect:/welcome.jsp";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -70,7 +70,7 @@ public class UserController {
             model.addAttribute("message", "Logged out successfully.");
         }
 
-        return "login";
+        return "login.jsp";
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
@@ -78,7 +78,7 @@ public class UserController {
 
         model.addAttribute("products", productService.getAll());
 
-        return "welcome";
+        return "welcome.jsp";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -86,6 +86,6 @@ public class UserController {
         model.addAttribute("productForm", new Product());
         model.addAttribute("products", productService.getAll());
 
-        return "admin";
+        return "admin.jsp";
     }
 }

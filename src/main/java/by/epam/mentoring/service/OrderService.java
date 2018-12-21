@@ -2,6 +2,7 @@ package by.epam.mentoring.service;
 
 import by.epam.mentoring.dao.OrderDao;
 import by.epam.mentoring.model.Order;
+import by.epam.mentoring.model.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +28,9 @@ public class OrderService {
 
     public Order getById(long id) {
         return orderDao.getById(id);
+    }
+
+    public void update(Long id, OrderStatus orderStatus){
+        orderDao.update(id, orderStatus);
     }
 }

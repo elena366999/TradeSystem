@@ -22,20 +22,20 @@ public class ItemController {
         // userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "registration.jsp";
         }
 
         itemService.save(itemForm);
 //
 //        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
-        return "redirect:/admin";
+        return "redirect:/admin.jsp";
     }
 
     @GetMapping("/deleteItem")
     public String deleteItem(@RequestParam("id") int id) {
         itemService.delete(id);
-        return "redirect:/admin";
+        return "redirect:/admin.jsp";
 
     }
 
@@ -44,7 +44,7 @@ public class ItemController {
         Item item = itemService.getById(id);
 
 
-        return "buy";
+        return "buy.jsp";
 
     }
 

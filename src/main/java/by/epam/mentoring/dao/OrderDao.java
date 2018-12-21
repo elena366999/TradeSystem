@@ -69,7 +69,7 @@ public class OrderDao {
     }
 
     public Order getById(final Long id) {
-        String sql = "SELECT * FROM orders inner join order_items on orders.id WHERE id=?";
+        String sql = "SELECT * FROM orders WHERE id=?";
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, new OrderDao.OrderMapper());
     }
 
@@ -97,6 +97,11 @@ public class OrderDao {
         String sql = "SELECT item_id from order_items where order_id= " + orderId;
         List<Long> list = jdbcTemplate.queryForList(sql, Long.class);
         return list.stream().map(id -> itemDao.getById(id)).collect(Collectors.toList());
+    }
+
+    public void update(Long id, OrderStatus orderStatus){
+        String SQL = "update orders set order_status = ? where id = ?";
+        jdbcTemplate.update(SQL, orderStatus.name(), id);
     }
 
     private void insertItemsInOrder(final Order order) {
