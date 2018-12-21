@@ -73,6 +73,18 @@ public class OrderDao {
         return jdbcTemplate.queryForObject(sql, new Object[]{id}, new OrderDao.OrderMapper());
     }
 
+    public void addItemToOrder(Long orderId, Long itemId) {
+        String sql = "INSERT INTO order_items (order_id, item_id) VALUES (?,?)";
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setLong(1, orderId);
+            ps.setLong(2, itemId);
+            return ps;
+        });
+    }
+
 //    public User getByEmail(final String email) {
 //        String sql = "SELECT * FROM users WHERE email=?";
 //        return jdbcTemplate.queryForObject(sql, new Object[]{email}, new UserMapper());
@@ -99,7 +111,7 @@ public class OrderDao {
         return list.stream().map(id -> itemDao.getById(id)).collect(Collectors.toList());
     }
 
-    public void update(Long id, OrderStatus orderStatus){
+    public void update(Long id, OrderStatus orderStatus) {
         String SQL = "update orders set order_status = ? where id = ?";
         jdbcTemplate.update(SQL, orderStatus.name(), id);
     }

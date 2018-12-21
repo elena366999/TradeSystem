@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -26,5 +29,11 @@ public class ProductService {
 
     public Product getById(long id) {
         return productDao.getById(id);
+    }
+
+    public List<Product> getAllSortedByPrice() {
+        List<Product> all = (List<Product> )getAll();
+        all.sort(Comparator.comparing(Product::getPrice));
+        return all;
     }
 }

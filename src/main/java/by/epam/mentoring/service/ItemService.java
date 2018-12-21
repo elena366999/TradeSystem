@@ -14,8 +14,8 @@ public class ItemService {
     @Autowired
     private ItemDao itemDao;
 
-    public void save(Item item) {
-        itemDao.save(item);
+    public Item save(Item item) {
+        return itemDao.save(item);
     }
 
     public Collection<Item> getAll() {

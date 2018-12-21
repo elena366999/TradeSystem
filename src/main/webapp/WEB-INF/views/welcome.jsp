@@ -37,6 +37,14 @@
 <br>
 
 </div>
+<a href="${contextPath}/welcome?sortPrice=true"> Sort by price</a>
+<div>
+
+</div>
+<a href="${contextPath}/viewMyPurchases"> View my purchases</a>
+<div>
+
+</div>
 <div class="container">
     <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
         <tr class="w3-blue">

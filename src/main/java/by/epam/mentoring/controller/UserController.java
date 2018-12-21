@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -74,10 +75,12 @@ public class UserController {
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-
-        model.addAttribute("products", productService.getAll());
-
+    public String welcome(Model model, @RequestParam(name = "sortPrice", required = false) String sorted) {
+        if (sorted != null) {
+            model.addAttribute("products", productService.getAllSortedByPrice());
+        } else {
+            model.addAttribute("products", productService.getAll());
+        }
         return "welcome.jsp";
     }
 

@@ -43,21 +43,21 @@ CREATE TABLE order_items (
 );
 
 INSERT INTO users (username, password, role)
-VALUES ('admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_ADMIN');
+VALUES ('admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_ADMIN');   /* password: 12345678 */
 INSERT INTO users (username, password, role)
-VALUES ('user', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');
+VALUES ('user', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');     /* password: 12345678 */
 INSERT INTO users (username, password, role)
-VALUES ('user2', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');
+VALUES ('user2', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');    /* password: 12345678 */
 
 
 INSERT INTO products (name, price, description)
-VALUES ('product1', '2.3', 'description1');
+VALUES ('product1', '5.9', 'description1');
 INSERT INTO products (name, price, description)
 VALUES ('product2', '2.3', 'description2');
 INSERT INTO products (name, price, description)
-VALUES ('product3', '2.3', 'description3');
+VALUES ('product3', '10.2', 'description3');
 INSERT INTO products (name, price, description)
-VALUES ('product4', '2.3', 'description4');
+VALUES ('product4', '4.0', 'description4');
 INSERT INTO products (name, price, description)
 VALUES ('product5', '2.3', 'description5');
 

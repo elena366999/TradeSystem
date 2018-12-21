@@ -13,7 +13,6 @@ public class User {
 
     private String password;
 
-//    @Transient
     private String confirmPassword;
 
     private Role role;
