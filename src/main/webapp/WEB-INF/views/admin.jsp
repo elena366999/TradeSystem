@@ -24,6 +24,11 @@
 </head>
 
 <body>
+<div class="container">
+    <a class="styled-link" href="?language=en">EN</a>
+    <a class="styled-link" href="?language=ru">RU</a>
+</div>
+
 <div style="float:right;  margin-right: 2%;">
     <a class="regular-link" href="${contextPath}/welcome"><spring:message code="label.main"/></a><br>
 </div>
@@ -32,16 +37,17 @@
         <form id="logoutForm" method="post" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2><spring:message code="label.admin-page"/> ${pageContext.request.userPrincipal.name} | <a
+        <h2><spring:message code="label.admin-page"/> | <a
                 class="regular-link"
                 onclick="document.forms['logoutForm'].submit()"><spring:message code="label.logout"/></a>
         </h2>
     </c:if>
 </div>
+<h2 align="center"><spring:message code="label.products"/></h2>
 
-<div class="w3-container w3-padding">
+<div class="container">
     <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
-        <tr class="w3-teal">
+        <tr>
             <th><spring:message code="label.product-name"/></th>
             <th><spring:message code="label.product-description"/></th>
             <th><spring:message code="label.product-price"/></th>
@@ -55,7 +61,8 @@
                 <td>${product.price}</td>
                 <td><img src="data:image/jpeg;base64,${product.encode}" width="150" height="200"
                          alt="item"/></td>
-                <td><a class="regular-link" href="${contextPath}/deleteProduct?id=${product.id}"><spring:message code="label.delete"/></a>
+                <td><a class="regular-link" href="${contextPath}/deleteProduct?id=${product.id}"><spring:message
+                        code="label.delete"/></a>
                 </td>
             </tr>
         </c:forEach>
@@ -63,40 +70,32 @@
 </div>
 <br>
 
-
-<div class="container">
-    <form:form method="POST" action="/addProduct" modelAttribute="productForm"
-               enctype="multipart/form-data" class="form-signin">
-        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    </form:form>
-</div>
-
-
-<form:form method="POST" action="/addProduct?${_csrf.parameterName}=${_csrf.token}" modelAttribute="productForm"
+<form:form method="POST" action="/addProduct" modelAttribute="productForm"
            enctype="multipart/form-data" class="form-signin">
-    <h2 class="form-signin-heading">Create new item</h2>
-
+    <h2 class="form-signin-heading"><spring:message code="label.create-product"/></h2>
+    <form:input path="" type="hidden" name="_csrf" value="${_csrf.token}"/>
     <div class="form-group ${status.error ? 'has-error' : ''}">
-        <form:input type="text" name="name" path="name" class="form-control" placeholder="Item name"
-                    autofocus="true"></form:input>
-        <form:errors path="name"></form:errors>
+        <spring:message code="label.product-name"/>
+        <form:input type="text" name="name" path="name" class="form-control" autofocus="true"/>
+        <form:errors path="name"/>
     </div>
 
     <div class="form-group ${status.error ? 'has-error' : ''}">
-        <form:input type="text" name="description" path="description" class="form-control"
-                    placeholder="Description"></form:input>
-        <form:errors path="description"></form:errors>
+        <spring:message code="label.product-description"/>
+        <form:input type="text" name="description" path="description" class="form-control"/>
+        <form:errors path="description"/>
     </div>
 
     <div class="form-group ${status.error ? 'has-error' : ''}">
+        <th><spring:message code="label.product-price"/></th>
         <form:input type="text" name="price" path="price" class="form-control"
-                    placeholder="0.0"></form:input>
-        <form:errors path="price"></form:errors>
+                    placeholder="0.0"/>
+        <form:errors path="price"/>
     </div>
 
     <div class="form-group ${status.error ? 'has-error' : ''}">
         <input type="file" name="image" class="form-control"
-               placeholder="Image"></input>
+               placeholder="Image"/>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="label.submit2"/></button>
 </form:form>
@@ -105,6 +104,8 @@
 <div align="center">
     <a class="regular-link" href="${contextPath}/showAllOrders"><spring:message code="label.orders"/></a>
 </div>
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>

@@ -32,7 +32,7 @@
 
 <div class="container">
 
-    <form method="POST" action="/login" class="form-signin">
+    <form method="POST" action="${contextPath}/login" class="form-signin">
         <h2 class="form-heading"><spring:message code="label.login"/></h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
@@ -53,7 +53,6 @@
     </form>
 
 </div>
-<!-- /container -->
 
 <div class="footer" align="center">
     <spring:message code="label.theme"/> <a class="styled-link2" href="?siteTheme=regular"><spring:message

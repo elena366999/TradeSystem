@@ -18,7 +18,8 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
         context.register(MainConfiguration.class);
         servletContext.setInitParameter("defaultHtmlEscape", "true");
 
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcherServlet", new DispatcherServlet(context));
+        ServletRegistration.Dynamic dispatcher = servletContext
+                .addServlet("dispatcherServlet", new DispatcherServlet(context));
 
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
@@ -27,7 +28,8 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
                 MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 2, MAX_UPLOAD_SIZE / 2);
 
         dispatcher.setMultipartConfig(multipartConfigElement);
-        FilterRegistration.Dynamic securityFilter = servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
+        FilterRegistration.Dynamic securityFilter = servletContext
+                .addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
         securityFilter.addMappingForUrlPatterns(null, false, "/*");
         securityFilter.setAsyncSupported(true);
         context.setServletContext(servletContext);

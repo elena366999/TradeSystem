@@ -36,41 +36,15 @@ public class ItemController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/addItem", method = RequestMethod.POST)
-    public String addItem(@RequestParam("image") MultipartFile file, @Valid @ModelAttribute Item itemForm, BindingResult bindingResult) {
-        // userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration.jsp";
-        }
-
-        itemService.save(itemForm);
-//
-//        securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
-
-        return "redirect:/admin.jsp";
-    }
-
     @GetMapping("/deleteItem")
     public String deleteItem(@RequestParam("id") int id) {
         itemService.delete(id);
-        return "redirect:/admin.jsp";
-
-    }
-
-    @GetMapping("/addItem")
-    public String addItem(@RequestParam("id") int id) {
-        Item item = itemService.getById(id);
-
-        return "buy.jsp";
-
+        return "redirect:/admin";
     }
 
     @RequestMapping(value = "/addItemToOrder/{productId}", method = RequestMethod.POST)
     public String addItemToOrder(@RequestParam("quantity") int quantity, @PathVariable("productId") Long productId, Principal user) {
-        Item item = new Item();
-        item.setQuantity(quantity);
-        item.setProduct(productService.getById(productId));
+        Item item = new Item(productService.getById(productId), quantity);
         Item savedItem = itemService.save(item);
 
         User userFromDb = userService.findByUsername(user.getName());
@@ -84,14 +58,11 @@ public class ItemController {
             order.addItem(item);
             orderService.addItemToOrder(order.getId(), savedItem.getId());
         } else {
-            Order order = new Order();
-            order.setOrderStatus(OrderStatus.NEW);
-            order.setUser(userFromDb);
+            Order order = new Order(OrderStatus.NEW, userFromDb);
             order.addItem(item);
             orderService.save(order);
         }
         return "redirect:/welcome";
     }
-
 
 }

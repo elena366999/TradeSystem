@@ -23,6 +23,11 @@
 <body>
 
 <div class="container">
+    <a class="styled-link" href="?language=en">EN</a>
+    <a class="styled-link" href="?language=ru">RU</a>
+</div>
+
+<div class="container">
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -35,19 +40,14 @@
 </div>
 
 <br>
-
-</div>
-<a href="${contextPath}/welcome?sortPrice=true"> Sort by price</a>
 <div>
-
+    <a style="float:left;  margin-left: 13%;" href="${contextPath}/welcome?sortPrice=true"><spring:message
+            code="label.sort-price"/></a>
 </div>
-<a href="${contextPath}/viewMyPurchases"> View my purchases</a>
-<div>
 
-</div>
 <div class="container">
     <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
-        <tr class="w3-blue">
+        <tr>
             <th><spring:message code="label.product-name"/></th>
             <th><spring:message code="label.product-description"/></th>
             <th><spring:message code="label.product-price"/></th>
@@ -67,11 +67,22 @@
     </table>
 </div>
 
-<div class="footer" align="center">
-    <a href="${contextPath}/admin"><spring:message code="label.to-admin-page"/></a>
-</div>
+<br>
+<a style="float:right;  margin-right: 13%;" href="${contextPath}/viewMyPurchases"><spring:message
+        code="label.my-purchases"/></a>
+<div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+    <div class="footer" align="center">
+        <a href="${contextPath}/admin"><spring:message code="label.to-admin-page"/></a><br>
+        <spring:message code="label.theme"/> <a class="styled-link2" href="?siteTheme=regular"><spring:message
+            code="label.theme-regular"/> </a> <spring:message code="label.or"/> <a class="styled-link3"
+                                                                                   href="?siteTheme=black">
+        <spring:message
+                code="label.theme-black"/></a>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

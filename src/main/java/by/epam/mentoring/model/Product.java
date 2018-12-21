@@ -7,10 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Transient;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
@@ -25,10 +22,11 @@ public class Product {
     @NotBlank
     @Size(min = 4, max = 100, message = "Product name should contain between {min} and {max} symbols")
     private String name;
-    @NotNull
-//    @Digits(integer = 10 , fraction = 2 )
 
+    @NotNull
+    @Size(min = 1, max = 100000)
     private double price;
+
     @NotNull
     @NotEmpty
     @NotBlank
@@ -36,6 +34,5 @@ public class Product {
 
     private MultipartFile image;
 
-//    @Transient
     private String encode;
 }

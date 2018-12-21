@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,58 +8,38 @@
     <meta name="author" content="">
 
     <link th:href="@{resources/css/bootstrap.min.css}" rel="stylesheet"/>
-
-    <!--<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">-->
-
+    <link rel="stylesheet" th:href="${#themes.code('styleSheet')}" type="text/css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="@{resources/css/regular.css}"  type="text/css"/>
 
-    <title>Orders</title>
+    <title>User orders</title>
 
 </head>
 <body>
-<h1 align="center">MY ORDERS</h1>
+<h1 align="center"><span th:text="#{label.my-orders}"></span></h1>
 
 <div class="container">
     <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
-        <tr class="w3-teal">
+        <tr>
             <th>
-                INFO ABOUT ITEMS
+                <span th:text="#{label.info-items}"></span>
             </th>
             <th>
-                <span th:text="#{label.status}"/>
+                <span th:text="#{label.status}"></span>
             </th>
-
         </tr>
         <tbody>
         <tr th:each="order: ${orders}">
             <td>
-                <table border="1">
-                    <tr class="w3-teal">
-                        <th>
-                            Item
-                        </th>
-                        <th>
-                            Quantity
-                        </th>
-
-                    </tr>
-                    <tbody>
-                    <tr th:each="item: ${order.items}">
-                        <td th:text="${item.product.name}"/>
-                        <td th:text="${item.quantity}"/>
-                    </tr>
-                    </tbody>
-                </table>
+                <ul th:each="item: ${order.items}">
+                     <span th:text="${item.product.name}"></span>  <span th:text="#{label.quantity2}"></span>
+                    <span th:text="${item.quantity}"></span></li>
+                </ul>
             </td>
-
-            <td th:text="${order.orderStatus}"/>
+            <td th:text="${order.orderStatus}"></td>
         </tr>
         </tbody>
     </table>
 </div>
-
-
 
 </body>
 </html>

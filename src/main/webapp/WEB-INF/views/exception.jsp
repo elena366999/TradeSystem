@@ -7,6 +7,5 @@
 
 <h2>${exception}</h2>
 
-</table>
 </body>
 </html>

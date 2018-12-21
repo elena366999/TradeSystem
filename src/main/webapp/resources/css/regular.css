@@ -105,4 +105,12 @@ body {
     color: steelblue;
 }
 
+th {
+    background-color: steelblue;
+}
+
+a {
+    cursor: pointer;
+}
+
 

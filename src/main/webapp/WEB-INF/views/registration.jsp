@@ -29,6 +29,11 @@
 <body>
 
 <div class="container">
+    <a class="styled-link" href="?language=en">EN</a>
+    <a class="styled-link" href="?language=ru">RU</a>
+</div>
+
+<div class="container">
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
         <h2 class="form-signin-heading"><spring:message code="label.account"/></h2>

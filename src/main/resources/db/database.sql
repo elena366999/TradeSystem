@@ -24,7 +24,7 @@ CREATE TABLE items (
   id         INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   product_id INT NOT NULL,
   quantity   INT NOT NULL DEFAULT 1,
-  FOREIGN KEY (product_id) REFERENCES products (id)
+  FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE CASCADE ON UPDATE CASCADE
 
 );
 
@@ -32,22 +32,25 @@ CREATE TABLE orders (
   id           INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
   order_status VARCHAR(40) NOT NULL,
   user_id      INT         NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users (id)
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE order_items (
   order_id INT NOT NULL,
   item_id  INT NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders (id),
-  FOREIGN KEY (item_id) REFERENCES items (id)
+  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (item_id) REFERENCES items (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO users (username, password, role)
-VALUES ('admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_ADMIN');   /* password: 12345678 */
+VALUES ('admin', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_ADMIN');
+/* password: 12345678 */
 INSERT INTO users (username, password, role)
-VALUES ('user', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');     /* password: 12345678 */
+VALUES ('user', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');
+/* password: 12345678 */
 INSERT INTO users (username, password, role)
-VALUES ('user2', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');    /* password: 12345678 */
+VALUES ('user2', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG', 'ROLE_USER');
+/* password: 12345678 */
 
 
 INSERT INTO products (name, price, description)

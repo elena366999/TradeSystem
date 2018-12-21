@@ -1,7 +1,8 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: black;
+    background-color: #080808;
+    color: thistle;
 }
 
 .form-signin {
@@ -62,5 +63,59 @@ body {
     background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
     height: 34px;
     width: 240px;
+}
+
+.styled-link3 {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 30%;
+}
+
+.styled-link2 {
+    background-color: #337ab7;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 30%;
 
 }
+
+.styled-link {
+    background-color: #92a8d1;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+}
+
+.regular-link {
+    color: steelblue;
+}
+
+th {
+    background-color: steelblue;
+    color: #122b40;
+}
+
+tr {
+    color: #122b40;
+}
+
+a {
+    cursor: pointer;
+}
+

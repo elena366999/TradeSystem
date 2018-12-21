@@ -1,13 +1,13 @@
 package by.epam.mentoring.controller;
 
 import by.epam.mentoring.model.Product;
+import by.epam.mentoring.model.User;
 import by.epam.mentoring.model.enums.Role;
 import by.epam.mentoring.service.ItemService;
 import by.epam.mentoring.service.ProductService;
-import by.epam.mentoring.validator.UserValidator;
-import by.epam.mentoring.model.User;
 import by.epam.mentoring.service.SecurityService;
 import by.epam.mentoring.service.UserService;
+import by.epam.mentoring.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -25,9 +26,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ItemService itemService;
 
     @Autowired
     private ProductService productService;
@@ -58,19 +56,17 @@ public class UserController {
 
         securityService.autoLogin(userForm.getUsername(), userForm.getConfirmPassword());
 
-        return "redirect:/welcome.jsp";
+        return "redirect:/welcome";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Locale locale, Model model, String error, String logout) {
+    public String login(Model model, String error, String logout) {
         if (error != null) {
             model.addAttribute("error", "Username or password is incorrect.");
         }
-
         if (logout != null) {
             model.addAttribute("message", "Logged out successfully.");
         }
-
         return "login.jsp";
     }
 
@@ -85,10 +81,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin(Model model) {
+    public String admin(Model model, HttpSession session) {
         model.addAttribute("productForm", new Product());
         model.addAttribute("products", productService.getAll());
-
+        session.setAttribute("products", productService.getAll());
         return "admin.jsp";
     }
 }

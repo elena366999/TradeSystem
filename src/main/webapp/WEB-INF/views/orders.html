@@ -1,63 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org ">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
+    <link th:href="@{resources/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="${#themes.code('styleSheet')}" type="text/css" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
 
     <title>Orders</title>
 
 </head>
 <body>
-<h1>ORDERS</h1>
-
+<h1 ><span th:text="#{label.orders-all}"></span></h1>
 
 </div>
 <div class="w3-container w3-padding">
     <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
         <tr class="w3-teal">
-            <th><span th:text="#{label.order-id}"/>
+            <th><span th:text="#{label.order-id}"></span>
             </th>
             <th>
-                <span th:text="#{label.status}"/>
+                <span th:text="#{label.status}"></span>
             </th>
             <th>
-                <span th:text="#{label.username}"/>
+                <span th:text="#{label.username}"></span>
             </th>
             <th>
-                <span th:text="#{label.product-action}"/>
+                <span th:text="#{label.product-action}"></span>
             </th>
         </tr>
         <tbody>
         <tr th:each="order: ${orders}">
-            <td th:text="${order.id}"/>
-            <td th:text="${order.orderStatus}"/>
-            <td th:text="${order.user.username}"/>
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.orderStatus}"></td>
+            <td th:text="${order.user.username}"></td>
             <td>
-                <form th:method="POST" th:action="@{/changeStatus/} + ${order.id}" />
-                <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>
-                <select th:name="orderStatus">
-                    <option th:each="orderSt : ${statuses}" th:value="${orderSt}" th:text="${orderSt}"></option>
-                </select>
-                <button class="btn btn-lg btn-primary btn-block" type="submit"><span th:text="#{label.change}"/>
-                </button>
-
-                <!--<input type="submit" value="#{label.change}"/>-->
+                <form th:method="POST" th:action="@{/changeStatus/} + ${order.id}">
+                    <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>
+                    <select th:name="orderStatus">
+                        <option th:each="orderSt : ${statuses}" th:value="${orderSt}" th:text="${orderSt}"></option>
+                    </select>
+                    <button class="btn btn-md btn-primary" type="submit"><span
+                            th:text="#{label.change}"></span>
+                    </button>
                 </form>
             </td>
-
         </tr>
         </tbody>
     </table>
 </div>
-
 
 </body>
 </html>

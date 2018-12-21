@@ -21,6 +21,11 @@ public class Order {
     private List<Item> items;
 
     public Order() {
+    }
+
+    public Order(OrderStatus orderStatus, User user) {
+        this.orderStatus = orderStatus;
+        this.user = user;
         items =  new ArrayList<>();
     }
 

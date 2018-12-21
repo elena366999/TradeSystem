@@ -1,8 +1,8 @@
 package by.epam.mentoring.service;
 
 import by.epam.mentoring.dao.UserDao;
-import by.epam.mentoring.model.enums.Role;
 import by.epam.mentoring.model.User;
+import by.epam.mentoring.model.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

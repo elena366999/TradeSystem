@@ -32,20 +32,18 @@ public class OrderController {
         model.addAttribute("orders", orders);
         model.addAttribute("statuses", Arrays.asList(OrderStatus.values()));
         return "orders.html";
-
     }
 
     @PostMapping("/changeStatus/{id}")
-    public String showAllOrders(Model model, @RequestParam("orderStatus") String status, @PathVariable("id") int id) {
+    public String showAllOrders(@RequestParam("orderStatus") String status, @PathVariable("id") int id) {
         orderService.update((long) id, OrderStatus.valueOf(status));
         return "redirect:/showAllOrders";
-
     }
 
     @GetMapping("/viewMyPurchases")
     public String viewMyPurchases(Model model, Principal user) {
         User userFromDb = userService.findByUsername(user.getName());
-                Collection<Order> orders = orderService.getOrdersForUser(userFromDb.getId());
+        Collection<Order> orders = orderService.getOrdersForUser(userFromDb.getId());
         model.addAttribute("orders", orders);
         return "userOrders.html";
     }

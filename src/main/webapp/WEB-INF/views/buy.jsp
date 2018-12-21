@@ -16,8 +16,9 @@
     <meta name="author" content="">
 
     <title>Buy</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
@@ -26,34 +27,28 @@
         <form id="logoutForm" method="post" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2><spring:message
-                code="label.admin-page"/> ${pageContext.request.userPrincipal.name} | <a
-                onclick="document.forms['logoutForm'].submit()"><spring:message
-                code="label.logout"/></a><br>
-            <a href="${contextPath}/welcome"><spring:message
-                    code="label.main"/></a><br>
+        <h2><a href="${contextPath}/welcome"><spring:message code="label.main"/></a><br>
         </h2>
     </c:if>
 </div>
 
-</div>
-<div class="w3-container w3-padding">
-    <table class="w3-table-all w3-centered w3-hoverable w3-card w3-padding" border="1">
+<h2 align="center"><spring:message code="label.about"/></h2><br>
+
+<div class="container">
+    <table align="center" style="width: auto;" class="w3-table-all w3-centered w3-hoverable w3-card w3-padding"
+           border="1">
         <tr>
-            <td>${product.name}</td>
-        </tr>
+            <td>${product.name}<br>
+                <p>------------</p>
+                ${product.description}<br>
+                <p>------------</p>
+                ${product.price}</td>
         <tr>
-            <td>${product.description}</td>
-        </tr>
-        <tr>
-            <td>${product.price}</td>
-        </tr>
-        <tr>
-            <td><<img src="data:image/jpeg;base64,${product.encode}" width="150" height="200"
-                      alt="product"/></td>
+            <td><img src="data:image/jpeg;base64,${product.encode}" width="150" height="200"
+                     alt="product"/></td>
         </tr>
     </table>
-</div>
+</div><br>
 
 <div align="center">
     <form method="POST" action="/addItemToOrder/${product.id}" class="form-signin">
@@ -63,7 +58,7 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <br>
         <input type="submit" value=<spring:message
-                code="label.submit2"/>>
+                code="label.submit3"/>>
     </form>
 </div>
 
